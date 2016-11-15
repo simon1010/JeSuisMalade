@@ -10,6 +10,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			// DBC Part
+			SQLiteJDBC myDB = new SQLiteJDBC();
+			myDB.createConnection();
+			// end DBC Part
+			
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
