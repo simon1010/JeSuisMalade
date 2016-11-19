@@ -18,7 +18,7 @@ public class SQLiteJDBC {
 	public boolean newEntry(int codBoala, int categorieVarsta, char sex)
 	{
 		String sql = "INSERT INTO BOLNAVI (COD_BOALA,CATEGORIE_VARSTA,SEX) " +
-                "VALUES (" + codBoala + "," + categorieVarsta + "," + sex +");";
+                "VALUES (" + codBoala + "," + categorieVarsta + ",'" + sex +"');";
 		
 		try {
 			stmt.executeUpdate(sql);
@@ -31,6 +31,28 @@ public class SQLiteJDBC {
 		return true;
 	}
 
+	public void printContent()
+	{
+		try {
+			ResultSet rs = stmt.executeQuery("SELECT * FROM BOLNAVI;");
+			while (rs.next()) {
+				int nrCrt     = rs.getInt("NRCRT");
+				int codBoala  = rs.getInt("COD_BOALA");
+				int catVarsta = rs.getInt("CATEGORIE_VARSTA");
+				String  sexul = rs.getString("SEX");
+				System.out.println("NRCRT            = " + nrCrt);
+				System.out.println("COD_BOALA        = " + codBoala);
+				System.out.println("CATEGORIE_VARSTA = " + catVarsta);
+				System.out.println("GENUL            = " + sexul);
+				System.out.println();
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void closeDBAccess() throws SQLException
 	{	
 		stmt.close();
