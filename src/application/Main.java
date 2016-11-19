@@ -18,7 +18,6 @@ public class Main extends Application {
 		try {
 			// DBC Part
 			SQLiteJDBC myDB = new SQLiteJDBC();
-			myDB.createConnection();
 			// end DBC Part
 			
 			BorderPane root = new BorderPane();
@@ -34,8 +33,7 @@ public class Main extends Application {
 	        });
 
 	        HBox hbox = new HBox(button, label);
-		    
-		    //Node appContent = new AppContentNode();
+	        
 		    root.setTop(toolbar);
 		    root.setCenter(hbox);
 		    root.setBottom(statusbar);
