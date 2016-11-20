@@ -17,6 +17,7 @@ public class Main extends Application {
 			UserInterface ui = new UserInterface();
 			// end UI
 			
+			// Class which connects the DBC to the UI, business-logic
 			Connector uiToDBConnector = new Connector(myDB, ui);
 			
 			Scene scene = new Scene(ui,400,400);

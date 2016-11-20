@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="/Users/newuser/Documents/workspace/JeSuisMalade/build/externalLibs/controlsfx-8.40.12.jar"/>
 	<classpathentry kind="lib" path="/Users/newuser/Documents/workspace/JeSuisMalade/build/externalLibs/controlsfx-samples-8.40.12.jar"/>
 	<classpathentry kind="lib" path="/Users/newuser/Documents/workspace/JeSuisMalade/build/externalLibs/fxsampler-1.0.9.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

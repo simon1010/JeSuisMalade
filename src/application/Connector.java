@@ -1,20 +1,53 @@
 package application;
 
 public class Connector {
-	
+  
 	public Connector(SQLiteJDBC DB, UserInterface UI)
 	{
-		// TODO move this to sepparate method
+		handleButAdaugare(DB, UI);
+	}
+	
+	private void handleButAdaugare(SQLiteJDBC DB, UserInterface UI)
+	{
+		UI.butAdaugare.setOnMouseEntered(value ->  {
+			UI.statusbar.setText("Apasa pentru adaugare in baza de date");
+		});
+		
+		UI.butAdaugare.setOnMouseExited(value ->  {
+			UI.statusbar.setText("OK");
+		});
+		
 		UI.butAdaugare.setOnAction(value ->  {
-			UI.statusbar.setText("OK -- Clicked Button");
+			UI.statusbar.setText("Se adauga in baza de date");
 			// TODO make varsta map to a value from the categorii de varsta
 			// TODO clear the textboxes after insert
 			// TODO create an overview stringbox in the UI itself
-			if(DB.newEntry(Integer.parseInt(UI.codBoala.getText()), Integer.parseInt(UI.varsta.getText()), UI.sexul.getValue().charAt(0)))
-			{
-				DB.printContent();
-			}
-        });
-		
+			try {
+        if(DB.newEntry(Integer.parseInt(UI.codBoala.getText()), getAgeCategory(Integer.parseInt(UI.varsta.getText())), UI.sexul.getValue().charAt(0)))
+        {
+        	DB.printContent();
+        	UI.statusbar.setText("Adaugat!");
+        }
+      } catch (NumberFormatException | InvalidArgumentException e) {
+        e.printStackTrace();
+      }
+    });
 	}
+	
+	public static int getAgeCategory(int Age)
+	{
+	  if(Age >= 85)
+	  {
+	    return 18;
+	  }
+	  int cat = 1;
+	  for(int i = 0; i < 86; i+= 5, cat++)
+	  {
+	    if(i > Age)
+	      return cat - 1;
+	  }
+	  return 0;
+	}
+	
+	
 }
