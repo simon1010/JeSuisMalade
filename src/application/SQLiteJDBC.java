@@ -114,7 +114,7 @@ public class SQLiteJDBC {
     String sql = "CREATE TABLE BOLNAVI " +
            "(NRCRT  INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL, " + 
            " COD_BOALA           INT                   NOT NULL, " +  // 1 - 999
-           " CATEGORIE_VARSTA    INT                   NOT NULL, " +  // 1 - 10 -> Create association
+           " CATEGORIE_VARSTA    INT                   NOT NULL, " +  // 1 - 18 -> Created association
            " SEX                 CHAR(1)               NOT NULL)" ;  // Male Female only
    
     stmt.executeUpdate(sql);

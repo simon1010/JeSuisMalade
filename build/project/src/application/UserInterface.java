@@ -6,7 +6,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
@@ -22,9 +21,7 @@ public class UserInterface extends BorderPane {
 	public FlowPane inputFields;
 	public TextField codBoala, varsta;
 	public Button butAdaugare;
-	public Button butInterogare;
 	public ComboBox<String> sexul;
-	public TextArea outputWindow;
 	/* End control definitions*/
 
 	public UserInterface()
@@ -46,35 +43,16 @@ public class UserInterface extends BorderPane {
 	    sexul = new ComboBox<String>();
 	    sexul.getItems().add("M");
 	    sexul.getItems().add("F");
-	    sexul.setMinWidth(190);
 	    inputFields.getChildren().add(sexul);
 	    
 	    butAdaugare = new Button("Adaugare");
-	    butAdaugare.setMinWidth(190);
 	    inputFields.getChildren().add(butAdaugare);
-	    
-	    butInterogare = new Button("Interogare");
-	    butInterogare.setMinWidth(190);
-	    inputFields.getChildren().add(butInterogare);
-	    
-	    outputWindow = new TextArea();
-	    outputWindow.setMaxWidth(500);
-	    outputWindow.setMinHeight(257);
-	    outputWindow.setEditable(false);
-	    inputFields.getChildren().add(outputWindow);
-	    
 	    inputFields.setOrientation(Orientation.VERTICAL);
 	    inputFields.setVgap(10);
-	    inputFields.setHgap(20);
 	    
-	    Region regionLeft = new Region();
-	    regionLeft.setMinWidth(20);
-	    this.setLeft(regionLeft);
-	    
-	    Region regionRight = new Region();
-	    regionRight.setMinWidth(20);
-	    this.setRight(regionRight);
-	    
+	    Region region = new Region();
+	    region.setMinWidth(10);
+	    this.setLeft(region);
 	    /*
 	    Button button = new Button("Adaugare");
         Label label = new Label("Not clicked");
@@ -84,7 +62,7 @@ public class UserInterface extends BorderPane {
         });
 
         HBox hbox = new HBox(button, label);*/
-      
+        
 	    this.setTop(toolbar);
 	    this.setCenter(inputFields);
 	    this.setBottom(statusbar);

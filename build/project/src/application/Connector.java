@@ -5,21 +5,9 @@ public class Connector {
 	public Connector(SQLiteJDBC DB, UserInterface UI)
 	{
 		handleButAdaugare(DB, UI);
-		handleButInterogare(DB, UI);
 	}
 	
-	private void handleButInterogare(SQLiteJDBC dB, UserInterface uI) 
-	{
-	  uI.butInterogare.setOnMouseEntered(value ->  {
-      uI.statusbar.setText("Apasa pentru a interoga baza de date");
-    });
-    
-    uI.butInterogare.setOnMouseExited(value ->  {
-      uI.statusbar.setText("OK");
-    });
-  }
-
-  private void handleButAdaugare(SQLiteJDBC DB, UserInterface UI)
+	private void handleButAdaugare(SQLiteJDBC DB, UserInterface UI)
 	{
 		UI.butAdaugare.setOnMouseEntered(value ->  {
 			UI.statusbar.setText("Apasa pentru adaugare in baza de date");
