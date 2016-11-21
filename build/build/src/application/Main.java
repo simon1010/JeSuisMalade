@@ -20,7 +20,7 @@ public class Main extends Application {
 			// Class which connects the DBC to the UI, business-logic
 			Connector uiToDBConnector = new Connector(myDB, ui);
 			
-			Scene scene = new Scene(ui,400,400);
+			Scene scene = new Scene(ui,750,320);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);
