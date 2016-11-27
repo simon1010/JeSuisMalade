@@ -137,7 +137,6 @@ public class SQLiteJDBC {
    try {
     return stmt.executeQuery(sql);
   } catch (SQLException e) {
-    // TODO Auto-generated catch block
     e.printStackTrace();
   }
   return null;

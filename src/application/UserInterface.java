@@ -12,14 +12,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 
 public class UserInterface extends BorderPane {
     
@@ -39,9 +33,9 @@ public class UserInterface extends BorderPane {
 	/* End control definitions*/
 
 	public FlowPane QinputFields;
-  public TextField QcodBoala, Qvarsta;
+  public TextField QcodBoala;
   public Button QbutInterogare;
-  public ComboBox<String> Qsexul;
+  public ComboBox<String> Qsexul, Qvarsta;;
   public TextArea QoutputWindow;
 	
   public UserInterface() {
@@ -72,13 +66,19 @@ public class UserInterface extends BorderPane {
     QinputFields.getChildren().add(QcodBoala);
 
     QinputFields.getChildren().add(new Label("Varsta:"));
-    this.Qvarsta = new TextField();
+    this.Qvarsta = new ComboBox<String>();
+    Qvarsta.setMinWidth(190);
+    Qvarsta.getItems().add("");
+    for(String it : CategoriiVarsta.categoriiVarsta) {
+      Qvarsta.getItems().add(it);
+    }
     QinputFields.getChildren().add(Qvarsta);
 
     // TODO: change to radio-buttons
     // Train - harmonica
     QinputFields.getChildren().add(new Label("Sexul:"));
     Qsexul = new ComboBox<String>();
+    Qsexul.getItems().add("");
     Qsexul.getItems().add("M");
     Qsexul.getItems().add("F");
     Qsexul.setMinWidth(190);
