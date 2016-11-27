@@ -35,23 +35,23 @@ public class Connector {
         ResultSet rs = dB.getQuery(uI.QcodBoala.getText(), CategoriiVarsta.getIndex(uI.Qvarsta.getValue()), uI.Qsexul.getValue());
         if (rs != null) {
           while (rs.next()) {
-            int nrCrt = rs.getInt("NRCRT");
-            int codBoala = rs.getInt("COD_BOALA");
+            int nrCrt     = rs.getInt("NRCRT"           );
+            int codBoala  = rs.getInt("COD_BOALA"       );
             int catVarsta = rs.getInt("CATEGORIE_VARSTA");
-            String sexul = rs.getString("SEX");
-            System.out.println("NRCRT            = " + nrCrt);
-            System.out.println("COD_BOALA        = " + codBoala);
+            String sexul  = rs.getString("SEX"          );
+            
+            System.out.println("NRCRT            = " + nrCrt    );
+            System.out.println("COD_BOALA        = " + codBoala );
             System.out.println("CATEGORIE_VARSTA = " + catVarsta);
-            System.out.println("GENUL            = " + sexul);
+            System.out.println("GENUL            = " + sexul    );
             System.out.println();
 
             // DO not touch this!
-            uI.QoutputWindow.appendText("INREG                          = " + nrCrt + "\n");
-            uI.QoutputWindow.appendText("COD_BOALA                = " + codBoala + "\n");
-            uI.QoutputWindow.appendText("CATEGORIE_VARSTA = " + CategoriiVarsta.categoriiVarsta[catVarsta - 1] + "\n");
-            uI.QoutputWindow.appendText("GENUL                         = " + sexul + "\n");
+            uI.QoutputWindow.appendText("INREG                          = " + nrCrt                                             + "\n");
+            uI.QoutputWindow.appendText("COD_BOALA                = "       + codBoala + "; " + CategoriiBoli.getBoala(codBoala) + "\n");
+            uI.QoutputWindow.appendText("CATEGORIE_VARSTA = "               + CategoriiVarsta.categoriiVarsta[catVarsta - 1]    + "\n");
+            uI.QoutputWindow.appendText("GENUL                         = "  + sexul                                             + "\n");
             uI.QoutputWindow.appendText("\n");
-
           }
           rs.close();
         }
@@ -76,24 +76,30 @@ public class Connector {
 
     UI.butAdaugare.setOnAction(value -> {
       UI.statusbar.setText("Se adauga in baza de date");
-      // TODO make varsta map to a value from the categorii de varsta
-      // TODO clear the textboxes after insert
-      // TODO create an overview stringbox in the UI itself
+      
       try {
-        if (DB.newEntry(Integer.parseInt(UI.codBoala.getText()), getAgeCategory(Integer.parseInt(UI.varsta.getText())),
-            UI.sexul.getValue().charAt(0))) {
+        int codBoala = Integer.parseInt(UI.codBoala.getText());
+        int varsta   = Integer.parseInt(UI.varsta.getText()  );
+        char sexul   = UI.sexul.getValue().charAt(0);
+        if (DB.newEntry( codBoala, getAgeCategory(varsta), sexul)) {
+          
+          // clear output window, handle user and debug logging
           UI.outputWindow.clear();
           DB.printContent();
           UI.statusbar.setText("Adaugat!");
-          UI.outputWindow.appendText("COD_BOALA                = " + UI.codBoala.getText() + "\n");
-          UI.outputWindow.appendText("CATEGORIE_VARSTA = " + getAgeCategory(Integer.parseInt(UI.varsta.getText())) + "\n");
+          
+          // Handle the large Stringbox
+          UI.outputWindow.appendText("COD_BOALA                = "      + UI.codBoala.getText()         + "; " + CategoriiBoli.getBoala(codBoala)+ "\n");
+          UI.outputWindow.appendText("CATEGORIE_VARSTA = "              + getAgeCategory(varsta)        + "\n");
           UI.outputWindow.appendText("GENUL                         = " + UI.sexul.getValue().charAt(0) + "\n");
           UI.outputWindow.appendText("\n");
+          
+          // clear input-textboxes after insert
           UI.codBoala.clear();
           UI.varsta.clear();
-          
         }
       } catch (NumberFormatException | InvalidArgumentException e) {
+        UI.outputWindow.setText(e.getMessage());
         e.printStackTrace();
       }
     });
