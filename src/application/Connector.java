@@ -1,5 +1,9 @@
 package application;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+
 public class Connector {
   
 	public Connector(SQLiteJDBC DB, UserInterface UI)
@@ -17,8 +21,54 @@ public class Connector {
     uI.butInterogare.setOnMouseExited(value ->  {
       uI.statusbar.setText("OK");
     });
+    
+    uI.butInterogare.setOnAction(value ->  {
+      uI.statusbar.setText("Se interogheaza baza de date");
+      try {
+        uI.QoutputWindow.setText("Rezultate:");
+        ResultSet cnt = dB.getCount(uI.QcodBoala.getText(), uI.Qvarsta.getText(), uI.Qsexul.getValue());
+        if(cnt != null)
+        {
+          if(cnt.next())
+          {
+            uI.QoutputWindow.appendText(" " + cnt.getInt(1) + "\n\n");
+          }
+        }cnt.close();
+        
+        ResultSet rs = dB.getQuery(uI.QcodBoala.getText(), uI.Qvarsta.getText(), uI.Qsexul.getValue());
+        if(rs != null)
+        { 
+          while (rs.next()) {
+            int nrCrt     = rs.getInt("NRCRT");
+            int codBoala  = rs.getInt("COD_BOALA");
+            int catVarsta = rs.getInt("CATEGORIE_VARSTA");
+            String  sexul = rs.getString("SEX");
+            System.out.println("NRCRT            = " + nrCrt);
+            System.out.println("COD_BOALA        = " + codBoala);
+            System.out.println("CATEGORIE_VARSTA = " + catVarsta);
+            System.out.println("GENUL            = " + sexul);
+            System.out.println();
+            
+            // DO not touch this!
+            uI.QoutputWindow.appendText("INREG                          = " + nrCrt                      + "\n");
+            uI.QoutputWindow.appendText("COD_BOALA               = "        + codBoala                   + "\n");
+            uI.QoutputWindow.appendText("CATEGORIE_VARSTA = "               + categoriiVarsta[catVarsta] + "\n");
+            uI.QoutputWindow.appendText("GENUL                         = "  + sexul                      + "\n");
+            uI.QoutputWindow.appendText("\n");
+            
+           }
+           rs.close();
+        }
+        
+      } catch (NumberFormatException | InvalidArgumentException e) {
+        e.printStackTrace();
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    });
   }
-
+	
   private void handleButAdaugare(SQLiteJDBC DB, UserInterface UI)
 	{
 		UI.butAdaugare.setOnMouseEntered(value ->  {
@@ -39,6 +89,8 @@ public class Connector {
         {
         	DB.printContent();
         	UI.statusbar.setText("Adaugat!");
+        	UI.codBoala.clear();
+        	UI.varsta.clear();
         }
       } catch (NumberFormatException | InvalidArgumentException e) {
         e.printStackTrace();
@@ -60,6 +112,24 @@ public class Connector {
 	  }
 	  return 0;
 	}
-	
-	
+	private static String[] categoriiVarsta = 
+	  {"0-4",
+	   "5-9",
+	   "10-14",
+	   "15-19",
+	   "20-24",
+	   "25-29",
+	   "30-34",
+	   "35-39",
+	   "40-44",
+	   "45-49",
+	   "50-54",
+	   "55-59",
+	   "60-64",
+	   "65-69",
+	   "70-74", 
+	   "75-79",
+	   "80-84",
+	   "85+"
+	  };
 }

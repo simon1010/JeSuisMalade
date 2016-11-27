@@ -20,10 +20,14 @@ public class Main extends Application {
 			// Class which connects the DBC to the UI, business-logic
 			Connector uiToDBConnector = new Connector(myDB, ui);
 			
-			Scene scene = new Scene(ui,750,320);
+			Scene scene = new Scene(ui, 733., 582.);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
+			ui.prefHeightProperty().bind(scene.heightProperty());
+      ui.prefWidthProperty().bind(scene.widthProperty());
+			
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -12,9 +12,14 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 
 public class UserInterface extends BorderPane {
     
@@ -39,110 +44,129 @@ public class UserInterface extends BorderPane {
   public ComboBox<String> Qsexul;
   public TextArea QoutputWindow;
 	
-	
-	public UserInterface()
-    {
-    	this.toolbar = new ToolBar();
-	    this.statusbar = new StatusBar();
-	    
-	    // Flow pane and items
-	    this.inputFields = new FlowPane();
-	    inputFields.getChildren().add(new Label("Cod Boala:"));
-	    this.codBoala = new TextField();
-	    inputFields.getChildren().add(codBoala);
-	    
-	    inputFields.getChildren().add(new Label("Varsta:"));
-	    this.varsta = new TextField();
-	    inputFields.getChildren().add(varsta);
-	    
-	    inputFields.getChildren().add(new Label("Sexul:"));
-	    sexul = new ComboBox<String>();
-	    sexul.getItems().add("M");
-	    sexul.getItems().add("F");
-	    sexul.setMinWidth(190);
-	    inputFields.getChildren().add(sexul);
-	    
-	    
-	    
-	     this.QinputFields = new FlowPane();
-	      QinputFields.getChildren().add(new Label("Cod Boala:"));
-	      this.QcodBoala = new TextField();
-	      QinputFields.getChildren().add(QcodBoala);
-	      
-	      QinputFields.getChildren().add(new Label("Varsta:"));
-	      this.Qvarsta = new TextField();
-	      QinputFields.getChildren().add(Qvarsta);
-	      
-	      QinputFields.getChildren().add(new Label("Sexul:"));
-	      Qsexul = new ComboBox<String>();
-	      Qsexul.getItems().add("M");
-	      Qsexul.getItems().add("F");
-	      Qsexul.setMinWidth(190);
-	      QinputFields.getChildren().add(Qsexul);
-	    
-	    
-	    butAdaugare = new Button("Adaugare");
-	    butAdaugare.setMinWidth(190);
-	    inputFields.getChildren().add(butAdaugare);
-	    
-	    butInterogare = new Button("Interogare");
-	    butInterogare.setMinWidth(190);
-	    QinputFields.getChildren().add(butInterogare);
-	    
-	    outputWindow = new TextArea();
-	    outputWindow.setMaxWidth(500);
-	    outputWindow.setMinHeight(225);
-	    outputWindow.setEditable(false);
-	    QinputFields.getChildren().add(outputWindow);
-	    
-	    tabPane = new TabPane();
-	    tabInsert = new Tab();
-	    tabQuery = new Tab();
-	    
-	    
-	    inputFields.setOrientation(Orientation.VERTICAL);
-	    inputFields.setVgap(10);
-	    inputFields.setHgap(20);
-	    
-	    
-	    QinputFields.setOrientation(Orientation.VERTICAL);
-      QinputFields.setVgap(10);
-      QinputFields.setHgap(20);
-      
-	    
-	    tabInsert.setContent(inputFields);
-	    tabQuery.setContent(QinputFields);
-	    
-	    tabInsert.setText("Inserare");
-	    tabQuery.setText("Interogare");
-	    
-	    tabInsert.setClosable(false);
-	    tabQuery.setClosable(false);
-	    
-	    tabPane.getTabs().add(tabInsert);
-	    tabPane.getTabs().add(tabQuery);
-	    
-	    Region regionLeft = new Region();
-	    regionLeft.setMinWidth(10);
-	    this.setLeft(regionLeft);
-	    
-	    Region regionRight = new Region();
-	    regionRight.setMinWidth(10);
-	    this.setRight(regionRight);
-	    
-	    /*
-	    Button button = new Button("Adaugare");
-        Label label = new Label("Not clicked");
-        button.setOnAction(value ->  {
-           statusbar.setText("OK -- Clicked Button");
-           label.setText("Clicked!");
-        });
+  public UserInterface() {
+    
+    this.toolbar = new ToolBar();
+    this.statusbar = new StatusBar();
 
-        HBox hbox = new HBox(button, label);*/
-      
-	    //this.setTop(toolbar);
-	    this.setCenter(tabPane);
-	    this.setBottom(statusbar);
-    }
+    // Flow pane and items
+    this.inputFields = new FlowPane();
+    inputFields.getChildren().add(new Label("Cod Boala:"));
+    this.codBoala = new TextField();
+    inputFields.getChildren().add(codBoala);
+
+    inputFields.getChildren().add(new Label("Varsta:"));
+    this.varsta = new TextField();
+    inputFields.getChildren().add(varsta);
+
+    inputFields.getChildren().add(new Label("Sexul:"));
+    sexul = new ComboBox<String>();
+    sexul.getItems().add("M");
+    sexul.getItems().add("F");
+    sexul.setMinWidth(190);
+    inputFields.getChildren().add(sexul);
+
+    this.QinputFields = new FlowPane();
+    QinputFields.getChildren().add(new Label("Cod Boala:"));
+    this.QcodBoala = new TextField();
+    QinputFields.getChildren().add(QcodBoala);
+
+    QinputFields.getChildren().add(new Label("Varsta:"));
+    this.Qvarsta = new TextField();
+    QinputFields.getChildren().add(Qvarsta);
+
+    // TODO: change to radio-buttons
+    // Train - harmonica
+    QinputFields.getChildren().add(new Label("Sexul:"));
+    Qsexul = new ComboBox<String>();
+    Qsexul.getItems().add("M");
+    Qsexul.getItems().add("F");
+    Qsexul.setMinWidth(190);
+    QinputFields.getChildren().add(Qsexul);
+
+    butAdaugare = new Button("Adaugare");
+    butAdaugare.setMinWidth(190);
+    inputFields.getChildren().add(butAdaugare);
+
+    butInterogare = new Button("Interogare");
+    butInterogare.setMinWidth(190);
+    QinputFields.getChildren().add(butInterogare);
+
+    outputWindow = new TextArea();
+    outputWindow.setMaxWidth(500);
+    outputWindow.setMinHeight(500);
+    outputWindow.setEditable(false);
+    inputFields.getChildren().add(outputWindow);
+    
+    QoutputWindow = new TextArea();
+    QoutputWindow.setMaxWidth(500);
+    QoutputWindow.setMinHeight(500);
+    QoutputWindow.setEditable(false);
+    QinputFields.getChildren().add(QoutputWindow);
+
+    tabPane = new TabPane();
+    tabInsert = new Tab();
+    tabQuery = new Tab();
+
+    inputFields.setOrientation(Orientation.VERTICAL);
+    inputFields.setVgap(10);
+    inputFields.setHgap(20);
+    inputFields.setPadding(new Insets(10, 10, 10, 10));
+
+    // TODO:
+    // inputFields.setPrefWrapLength(210);
+
+    QinputFields.setOrientation(Orientation.VERTICAL);
+    QinputFields.setVgap(10);
+    QinputFields.setHgap(20);
+    QinputFields.setPadding(new Insets(10, 10, 10, 10));
+
+    tabInsert.setContent(inputFields);
+    tabQuery.setContent(QinputFields);
+
+    tabInsert.setText("Inserare");
+    tabQuery.setText("Interogare");
+
+    tabInsert.setClosable(false);
+    tabQuery.setClosable(false);
+
+    tabPane.getTabs().add(tabInsert);
+    tabPane.getTabs().add(tabQuery);
+
+    this.setCenter(tabPane);
+    this.setBottom(statusbar);
+  }
+  @Override
+public void resize(double width, double height) {
+    super.resize(width, height);
+  System.out.println("w= " +width + "h= " + height + "\n");
+}
+// private double windowW = 0, windowH = 0;
+//  
+//  @Override
+//  public void resize(double width, double height) {
+//    
+//    if (windowH != 0 && windowW != 0) {
+//      double deltaH = 0., deltaW = 0.;
+//      if (windowH != height) {
+//        deltaH = height - windowH;
+//      }
+//      if (windowW != width) {
+//        deltaW = width - windowW;
+//      }
+//      
+//      double qw = QoutputWindow.getWidth();
+//      double qh = QoutputWindow.getHeight();
+//      
+//      System.out.println("w= " +qw + "h= " + qh + "\n");
+//      QoutputWindow.setMinHeight(qh + deltaH);
+//      QoutputWindow.setMinWidth(qw + deltaW);
+//    }
+//
+//    windowH = height;
+//    windowW = width;
+//
+//    super.resize(width, height);
+//  }
 
 }

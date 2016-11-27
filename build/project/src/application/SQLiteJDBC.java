@@ -61,6 +61,88 @@ public class SQLiteJDBC {
   return true;
  }
 
+ public ResultSet getQuery(String codBoala, String categorieVarsta, String sex) throws InvalidArgumentException
+ {
+   String sql = "SELECT * FROM BOLNAVI WHERE";
+   
+    if (null != codBoala && !codBoala.isEmpty()) {
+      sql += " COD_BOALA='" + codBoala + "'";
+      if (null != categorieVarsta && !categorieVarsta.isEmpty()) {
+        sql += " AND " + "CATEGORIE_VARSTA='" + categorieVarsta + "'";
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      } else {
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      }
+    } else {
+      if (null != categorieVarsta && !categorieVarsta.isEmpty()) {
+        sql += " CATEGORIE_VARSTA='" + categorieVarsta + "'";
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      } else {
+        if (null != sex && !sex.isEmpty()) {
+          sql += " SEX='" + sex + "'";
+        }
+      }
+    }
+   
+    sql = sql + ";";
+    System.out.println("query = " + sql);
+   
+   try {
+    return stmt.executeQuery(sql);
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+  return null;
+ }
+ 
+ public ResultSet getCount(String codBoala, String categorieVarsta, String sex) throws InvalidArgumentException
+ {
+   String sql = "SELECT COUNT(*) FROM BOLNAVI WHERE";
+   
+    if (null != codBoala && !codBoala.isEmpty()) {
+      sql += " COD_BOALA='" + codBoala + "'";
+      if (null != categorieVarsta && !categorieVarsta.isEmpty()) {
+        sql += " AND " + "CATEGORIE_VARSTA='" + categorieVarsta + "'";
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      } else {
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      }
+    } else {
+      if (null != categorieVarsta && !categorieVarsta.isEmpty()) {
+        sql += " CATEGORIE_VARSTA='" + categorieVarsta + "'";
+        if (null != sex && !sex.isEmpty()) {
+          sql += " AND " + "SEX='" + sex + "'";
+        }
+      } else {
+        if (null != sex && !sex.isEmpty()) {
+          sql += " SEX='" + sex + "'";
+        }
+      }
+    }
+   
+    sql = sql + ";";
+    System.out.println("query = " + sql);
+   
+   try {
+    return stmt.executeQuery(sql);
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+  return null;
+ }
+ 
  public void printContent()
  {
   try {
@@ -93,7 +175,7 @@ public class SQLiteJDBC {
  {
      try {
        Class.forName("org.sqlite.JDBC");
-       c    = DriverManager.getConnection("jdbc:sqlite:test.db");
+       c    = DriverManager.getConnection("jdbc:sqlite:ES_DATABASE.db");
        stmt = c.createStatement();
      } catch ( Exception e ) {
        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
