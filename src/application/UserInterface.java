@@ -4,6 +4,7 @@ import org.controlsfx.control.StatusBar;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -14,30 +15,40 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 
 public class UserInterface extends BorderPane {
     
 	/* Define all controls here and be sure to make them public */
 	public ToolBar toolbar;
 	public StatusBar statusbar;
+
+	// The big boys
+  public TabPane tabPane;
+  public Tab tabInsert;
+  public Tab tabQuery;
+  public Tab tabExperimental;
 	
+  // Insertion tab content
 	public FlowPane inputFields;
 	public TextField codBoala, varsta;
 	public Button butAdaugare;
 	public Button butInterogare;
 	public ComboBox<String> sexul;
 	public TextArea outputWindow;
-	public TabPane tabPane;
-	public Tab tabInsert;
-	public Tab tabQuery;
-	/* End control definitions*/
-
+	
+	// Query tab content
 	public FlowPane QinputFields;
   public TextField QcodBoala;
   public Button QbutInterogare;
   public ComboBox<String> Qsexul, Qvarsta;;
   public TextArea QoutputWindow;
-	
+  
+  // Experimental tab content
+	public GridPane expFields;
+	public PieChart expPieChart;
+
+  /* End control definitions*/
   public UserInterface() {
     
     this.toolbar = new ToolBar();
@@ -104,10 +115,12 @@ public class UserInterface extends BorderPane {
     QoutputWindow.setEditable(false);
     QinputFields.getChildren().add(QoutputWindow);
 
-    tabPane = new TabPane();
-    tabInsert = new Tab();
-    tabQuery = new Tab();
-
+    // The TABS
+    tabPane         = new TabPane();
+    tabInsert       = new Tab();
+    tabQuery        = new Tab();
+    tabExperimental = new Tab();
+        
     inputFields.setOrientation(Orientation.VERTICAL);
     inputFields.setVgap(10);
     inputFields.setHgap(20);
@@ -121,17 +134,35 @@ public class UserInterface extends BorderPane {
     QinputFields.setHgap(20);
     QinputFields.setPadding(new Insets(10, 10, 10, 10));
 
+    // EXPERIMENTAL
+    expFields = new GridPane();
+    expPieChart = new PieChart();
+    expFields.getChildren().add(expPieChart);
+       
+    PieChart.Data slice1 = new PieChart.Data("Desktop", 213);
+    PieChart.Data slice2 = new PieChart.Data("Phone"  , 67);
+    PieChart.Data slice3 = new PieChart.Data("Tablet" , 36);
+
+    expPieChart.getData().add(slice1);
+    expPieChart.getData().add(slice2);
+    expPieChart.getData().add(slice3);
+
+    
     tabInsert.setContent(inputFields);
     tabQuery.setContent(QinputFields);
+    tabExperimental.setContent(expFields);
 
     tabInsert.setText("Inserare");
     tabQuery.setText("Interogare");
-
+    tabExperimental.setText("Experimental");
+    
     tabInsert.setClosable(false);
     tabQuery.setClosable(false);
+    tabExperimental.setClosable(false);
 
     tabPane.getTabs().add(tabInsert);
     tabPane.getTabs().add(tabQuery);
+    tabPane.getTabs().add(tabExperimental);
 
     this.setCenter(tabPane);
     this.setBottom(statusbar);
